@@ -4,6 +4,25 @@ variable "region" {
     default     = "ap-southeast-2"
 }
 
+variable "profile" {
+  description = "IAM Profile"
+  type        = string
+  default     = "289490658370_289490658370.admin"
+  sensitive   = true
+}
+
+variable "account_id" {
+  description = "AWS Account ID"
+  type        = string
+  default     = "289490658370"
+  sensitive   = true
+
+  validation {
+    condition     = length(var.account_id) == 12 && length(regexall("[^0-9]", var.account_id)) == 0
+    error_message = "The account number must be 12 characters, and only contain numbers."
+  }
+}
+
 variable "project_name" {
     description = "High level description of project"
     type        = string
